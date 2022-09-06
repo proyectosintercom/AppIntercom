@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "5122163078",
+    "project_id": "intercom-680a7",
+    "storage_bucket": "intercom-680a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5122163078:android:97926b49827f08c203ec07",
+        "android_client_info": {
+          "package_name": "com.intercom.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "5122163078-71c1489oa290t2r9co0065qd1abttlua.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.intercom.app",
+            "certificate_hash": "286900a66000e6605cfe12ee266e6fcac6a8fbd7"
+          }
+        },
+        {
+          "client_id": "5122163078-i4rlqjcjf4d2u2nk2j2at1bqinjo3dd9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIAzqYN8RJNM1u00qHDrgizAg_YXe8B24"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "5122163078-i4rlqjcjf4d2u2nk2j2at1bqinjo3dd9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.appintercom">
+    package="com.intercom.app">
    <application
         android:label="appintercom"
         android:name="${applicationName}"

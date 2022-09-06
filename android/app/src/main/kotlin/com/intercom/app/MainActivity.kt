@@ -1,4 +1,4 @@
-package com.example.appintercom
+package com.intercom.app
 
 import io.flutter.embedding.android.FlutterActivity
 
