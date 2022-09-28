@@ -1,16 +1,12 @@
 import 'dart:convert';
-import 'package:apiintercom/models/user.dart';
+import 'package:appintercom/src/models/user_finansys_model.dart';
 
 import 'package:http/http.dart' as http;
 
 class RestDataSource {
-  //http://codgrec.finamsys.com:9969/api/v1.0/get_invoice_from_idc
+
   static const String _baseUrl = 'codgrec.finamsys.com:9969';
   static const String _name = '/api/v1.0/get_invoice_from_idc';
-
-  //static const String _location = '/api';
-  //static const String _picture = '/api';
-
   final http.Client _httpClient;
 
   RestDataSource({http.Client? httpClient})
@@ -29,11 +25,11 @@ class RestDataSource {
     return builder(decoded['messaje'][0]);
   }
 
-  Future<User> getName(String company, String idc) async {
+  Future<UserFinansys> getName(String company, String idc) async {
     return _callGetApi(
       endpoint: _name,
       params: {'id_company': company, 'idc': idc},
-      builder: (data) => User.fromJson(data),
+      builder: (data) => UserFinansys.fromJson(data),
     );
   }
 }
