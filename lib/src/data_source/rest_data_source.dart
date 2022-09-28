@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:apiintercom/models/user.dart';
+import 'package:appintercom/src/models/user_finansys_model.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -29,11 +29,11 @@ class RestDataSource {
     return builder(decoded['messaje'][0]);
   }
 
-  Future<User> getName(String company, String idc) async {
+  Future<UserFinansys> getName(String company, String idc) async {
     return _callGetApi(
       endpoint: _name,
       params: {'id_company': company, 'idc': idc},
-      builder: (data) => User.fromJson(data),
+      builder: (data) => UserFinansys.fromJson(data),
     );
   }
 }

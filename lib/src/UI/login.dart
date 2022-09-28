@@ -1,5 +1,5 @@
 
-import 'package:appintercom/src/repository/UI/Animation/FadeAnimation.dart';
+import 'package:appintercom/src/UI/Animation/FadeAnimation.dart';
 import 'package:appintercom/src/repository/bloc/auth_cubit.dart';
 import 'package:appintercom/src/navigation/routes.dart';
 import 'package:flutter/cupertino.dart';

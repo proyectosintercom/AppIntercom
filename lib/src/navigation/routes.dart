@@ -1,10 +1,10 @@
-import 'package:appintercom/src/repository/UI/home_screen.dart';
-import 'package:appintercom/src/repository/UI/intro_screen.dart';
-import 'package:appintercom/src/repository/UI/login.dart';
-import 'package:appintercom/src/repository/UI/splash_screen.dart';
-import 'package:appintercom/src/repository/UI/intro/onboarding.dart';
+import 'package:appintercom/src/UI/home_screen.dart';
+import 'package:appintercom/src/UI/intro_screen.dart';
+import 'package:appintercom/src/UI/login.dart';
+import 'package:appintercom/src/UI/splash_screen.dart';
+import 'package:appintercom/src/UI/intro/onboarding.dart';
 import 'package:flutter/material.dart';
-import 'package:appintercom/src/repository/UI/create_account.dart';
+import 'package:appintercom/src/UI/create_account.dart';
 class Routes
 {
   static const splash = '/';

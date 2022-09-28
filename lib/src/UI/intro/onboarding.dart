@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:appintercom/src/repository/UI/intro/onboarding.dart';
+import 'package:appintercom/src/UI/intro/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:onboarding_animation/onboarding_animation.dart';
