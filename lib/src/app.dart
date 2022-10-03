@@ -3,6 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:appintercom/src/repository/bloc/auth_cubit.dart';
 import 'package:appintercom/src/navigation/routes.dart';
 
+import 'package:appintercom/generated/l10n.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutterfire_ui/i10n.dart';
+
+import '../l10n/l10n.dart';
+
 final _navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
@@ -26,6 +32,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        // Creates an instance of FirebaseUILocalizationDelegate with overridden labels
+        FlutterFireUILocalizations.withDefaultOverrides(const LabelOverrides()),
+
+        // Delegates below take care of built-in flutter widgets
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+
+        // This delegate is required to provide the labels that are not overridden by LabelOverrides
+        FlutterFireUILocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('es'),
+
+        // ... other locales the app supports
+      ],
+
       navigatorKey: _navigatorKey,
       title: 'Authentication Flow',
       onGenerateRoute: Routes.routes,
