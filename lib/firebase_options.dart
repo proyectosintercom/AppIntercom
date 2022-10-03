@@ -26,7 +26,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -51,20 +54,9 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBIAzqYN8RJNM1u00qHDrgizAg_YXe8B24',
-    appId: '1:5122163078:android:97926b49827f08c203ec07',
+    appId: '1:5122163078:android:8cac3d7761b572fa03ec07',
     messagingSenderId: '5122163078',
     projectId: 'intercom-680a7',
     storageBucket: 'intercom-680a7.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAskdvKoypWOBilUylzLC13vqHBMihtcR8',
-    appId: '1:5122163078:ios:4ba9cb53d45f5cc003ec07',
-    messagingSenderId: '5122163078',
-    projectId: 'intercom-680a7',
-    storageBucket: 'intercom-680a7.appspot.com',
-    androidClientId: '5122163078-71c1489oa290t2r9co0065qd1abttlua.apps.googleusercontent.com',
-    iosClientId: '5122163078-7fj3k5tmvjdavqk6krfg7kpnmd98cn3k.apps.googleusercontent.com',
-    iosBundleId: 'com.example.appintercom',
   );
 }

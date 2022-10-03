@@ -27,6 +27,8 @@ class PaginaLoginState extends State<PaginaLogin> {
         return SignInScreen(
           providerConfigs: [
             EmailProviderConfiguration(),
+            GoogleProviderConfiguration(clientId: '5122163078-i4rlqjcjf4d2u2nk2j2at1bqinjo3dd9.apps.googleusercontent.com')
+            
           ],
         );
       },

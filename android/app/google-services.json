@@ -7,43 +7,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:5122163078:android:18a5a77d2b824f6d03ec07",
-        "android_client_info": {
-          "package_name": "com.example.testing"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "5122163078-i4rlqjcjf4d2u2nk2j2at1bqinjo3dd9.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBIAzqYN8RJNM1u00qHDrgizAg_YXe8B24"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "5122163078-i4rlqjcjf4d2u2nk2j2at1bqinjo3dd9.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "5122163078-7fj3k5tmvjdavqk6krfg7kpnmd98cn3k.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.appintercom"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:5122163078:android:97926b49827f08c203ec07",
+        "mobilesdk_app_id": "1:5122163078:android:8cac3d7761b572fa03ec07",
         "android_client_info": {
           "package_name": "com.intercom.app"
         }
