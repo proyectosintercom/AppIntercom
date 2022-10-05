@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:appintercom/src/repository/bloc/auth_cubit.dart';
+import 'package:appintercom/src/bloc/auth_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
+/*
 class Createaccount extends StatefulWidget {
   const Createaccount({Key? key}) : super(key: key);
   static Widget create(BuildContext context) => const Createaccount();
@@ -274,3 +274,4 @@ class _Botones extends StatelessWidget
 
   }
 }
+*/

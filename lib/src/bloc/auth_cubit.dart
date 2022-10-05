@@ -3,6 +3,17 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../data_source/rest_data_mysql.dart';
+import '../models/user_mysql_model.dart';
+
+Future<UserMysql> datosMysql(user) async {
+  final dataSource = RestDataSourceMySql();
+  final user1 = await dataSource.getName(user);
+  //print(user.correo);
+  print(user1.cedula);
+  return user1;
+}
+
 class AuthCubit extends Cubit<AuthState> {
   final AuthRepositoryBase _authRepository;
   late StreamSubscription _authSubscription;
@@ -18,21 +29,14 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> reset() async => emit(AuthInitialState());
 
-  void _authStateChanged(AuthUser? user) =>
-      user == null ? emit(AuthSignedOut()) : emit(AuthSignedIn(user));
-
-  Future<void> createUserWithEmailAndPassword(String email, String password) =>
-      _signIn(_authRepository.createUserWithEmailAndPassword(email, password));
-
-  Future<void> signInWithEmailAndPassword(String email, String password) =>
-      _signIn(_authRepository.signInWithEmailAndPassword(email, password));
-
-
-
-  Future<void> signInWithGoogle() =>
-      _signIn(_authRepository.signInWithGoogle());
-
-
+  void _authStateChanged(AuthUser? user) {
+    if (user != null) {
+      datosMysql(user);
+      //emit(AuthSignedOut());
+    } else {
+      emit(AuthSignedOut());
+    }
+  }
 
   Future<void> _signIn(Future<AuthUser?> auxUser) async {
     try {
@@ -41,7 +45,7 @@ class AuthCubit extends Cubit<AuthState> {
       if (user == null) {
         emit(AuthError("Unknown error, try again later"));
       } else {
-        emit(AuthSignedIn(user));
+        emit(AuthSignedWithMysql(user));
       }
     } catch (e) {
       emit(AuthError("Error ${e.toString()}"));
@@ -65,8 +69,7 @@ abstract class AuthState extends Equatable {
   List<Object?> get props => [];
 }
 
-class AuthInitialState extends AuthState {
-}
+class AuthInitialState extends AuthState {}
 
 class AuthError extends AuthState {
   final String message;
@@ -86,6 +89,14 @@ class AuthSignedIn extends AuthState {
 
   AuthSignedIn(this.user);
 
+  @override
+  List<Object?> get props => [user];
+}
+
+class AuthSignedWithMysql extends AuthState {
+  final AuthUser user;
+
+  AuthSignedWithMysql(this.user);
   @override
   List<Object?> get props => [user];
 }

@@ -3,53 +3,64 @@ import 'package:appintercom/src/models/user_mysql_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:appintercom/src/repository/bloc/auth_cubit.dart';
+import 'package:appintercom/src/bloc/auth_cubit.dart';
 import 'package:appintercom/src/data_source/rest_data_source.dart';
 import 'package:appintercom/src/data_source/rest_data_mysql.dart';
 
 import 'componentes/info_cliente.dart';
 import 'componentes/services.dart';
 
-
-Future<UserFinansys> datosFinansys() async{
+Future<UserFinansys> datosFinansys() async {
   final dataSource = RestDataSource();
   final name = await dataSource.getName("0190483843001", "5600000038");
   return name;
 }
-Future<UserMysql> datosMysql(usuario) async{
+
+Future<UserMysql> datosMysql(usuario) async {
   final dataSource = RestDataSourceMySql();
   final user = await dataSource.getName(usuario);
   //print(user.correo);
   print(user.cedula);
   return user;
 }
+
 class HomeScreen extends StatelessWidget {
   static Widget create(BuildContext context) => HomeScreen();
 
   const HomeScreen({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
-    String usuario="s";
-
-
-
-
+    String usuario = "s";
 
     return Scaffold(
         appBar: AppBar(title: Text('Bienvenido')),
         body: BlocBuilder<AuthCubit, AuthState>(
-            buildWhen: (previous, current) => current is AuthSignedIn,
+            buildWhen: (previous, current) => current is AuthSignedWithMysql,
             builder: (_, state) {
-              final authUser = (state as AuthSignedIn).user;
-              usuario=authUser.uid;
+              final authUser = (state as AuthSignedWithMysql).user;
+              usuario = authUser.uid;
 
-              return (Column(children: [
-                ElevatedButton(
-                    onPressed: () => context.read<AuthCubit>().signOut(),
-                    child: Text('Salir'))
-              ],));
+              return (Column(
+                children: [
+                  FutureBuilder<UserMysql>(
+                      future: datosMysql(usuario),
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Text("Este usuario esta en MySql");
+                        } else if (!snapshot.hasData) {
+                          return Text("No tiene");
+                        } else if (snapshot.hasError) {
+                          return Icon(Icons.error_outline);
+                        } else {
+                          return CircularProgressIndicator();
+                        }
+                      }),
+                  ElevatedButton(
+                      onPressed: () => context.read<AuthCubit>().signOut(),
+                      child: Text('Salir'))
+                ],
+              ));
 
               /*return FutureBuilder<UserMysql>(
                 future: datosMysql(usuario),
@@ -80,17 +91,9 @@ class HomeScreen extends StatelessWidget {
               );
 
             */
+            }));
 
-            })
-    );
-
-
-
-
-
-
-
-   /* Scaffold(
+    /* Scaffold(
         appBar: AppBar(title: Text('Bienvenido')),
         body: BlocBuilder<AuthCubit, AuthState>(
             buildWhen: (previous, current) => current is AuthSignedIn,
@@ -212,10 +215,5 @@ class HomeScreen extends StatelessWidget {
     );
 
  */
-
-
-
-
-
   }
 }

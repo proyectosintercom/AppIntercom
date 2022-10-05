@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:appintercom/src/repository/bloc/auth_cubit.dart';
+import 'package:appintercom/src/bloc/auth_cubit.dart';
 import 'package:appintercom/src/navigation/routes.dart';
 
 import 'package:appintercom/generated/l10n.dart';
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         if (state is AuthSignedOut) {
           _navigatorKey.currentState
               ?.pushNamedAndRemoveUntil(Routes.intro, (r) => false);
-        } else if (state is AuthSignedIn) {
+        } else if (state is AuthSignedWithMysql) {
           _navigatorKey.currentState
               ?.pushNamedAndRemoveUntil(Routes.home, (r) => false);
         }
@@ -48,7 +48,6 @@ class MyApp extends StatelessWidget {
 
         // ... other locales the app supports
       ],
-
       navigatorKey: _navigatorKey,
       title: 'Authentication Flow',
       onGenerateRoute: Routes.routes,

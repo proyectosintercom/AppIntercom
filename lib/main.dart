@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:appintercom/src/app.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'src/repository/bloc/auth_cubit.dart';
+import 'src/bloc/auth_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,4 +1,4 @@
-import 'package:appintercom/src/repository/bloc/auth_cubit.dart';
+import 'package:appintercom/src/bloc/auth_cubit.dart';
 import 'package:appintercom/src/navigation/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

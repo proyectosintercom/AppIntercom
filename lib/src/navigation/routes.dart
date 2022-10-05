@@ -5,18 +5,16 @@ import 'package:appintercom/src/UI/splash_screen.dart';
 import 'package:appintercom/src/UI/intro/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:appintercom/src/UI/create_account.dart';
-class Routes
-{
+
+class Routes {
   static const splash = '/';
-  static const intro ='intro';
-  static const login='/login';
-  static const home ='/home';
-  static const crear ='/Createaccount';
+  static const intro = 'intro';
+  static const login = '/login';
+  static const home = '/home';
+  static const crear = '/Createaccount';
 
-
-  static Route routes(RouteSettings routeSettings)
-  {
-    switch(routeSettings.name){
+  static Route routes(RouteSettings routeSettings) {
+    switch (routeSettings.name) {
       case splash:
         return _buildRoute(SplashScreen.create);
       case intro:
@@ -25,13 +23,12 @@ class Routes
         return _buildRoute(HomeScreen.create);
       case login:
         return _buildRoute(PaginaLogin.create);
-      case crear:
-        return _buildRoute(Createaccount.create);
+
       default:
         throw Exception('Ruta no existe');
     }
   }
-  static MaterialPageRoute _buildRoute(Function build)=> MaterialPageRoute(builder: (context)=>build(context));
 
-
+  static MaterialPageRoute _buildRoute(Function build) =>
+      MaterialPageRoute(builder: (context) => build(context));
 }

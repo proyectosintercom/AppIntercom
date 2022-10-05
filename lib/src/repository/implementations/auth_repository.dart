@@ -7,12 +7,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthRepository extends AuthRepositoryBase
 {
   final _firebaseAuth = FirebaseAuth.instance;
-  AuthUser? _userFromFirebase(User? user) =>
-      user == null ? null : AuthUser(user.uid);
+  AuthUser? _userFromFirebase(User? user) => user == null ? null : AuthUser(user.uid);
 
   @override
-  Stream<AuthUser?> get onAuthStateChanged =>
-      _firebaseAuth.authStateChanges().asyncMap(_userFromFirebase);
+  Stream<AuthUser?> get onAuthStateChanged => _firebaseAuth.authStateChanges().asyncMap(_userFromFirebase);
 
   @override
   Future<AuthUser?> signInAnonymously() async {
