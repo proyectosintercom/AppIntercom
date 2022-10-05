@@ -2,21 +2,23 @@ import 'package:appintercom/src/repository/auth_repository.dart';
 import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutterfire_ui/auth.dart';
 
 import '../data_source/rest_data_mysql.dart';
 import '../models/user_mysql_model.dart';
 
 Future<UserMysql> datosMysql(user) async {
   final dataSource = RestDataSourceMySql();
-  final user1 = await dataSource.getName(user);
+  final usuario = await dataSource.getName(user);
   //print(user.correo);
-  print(user1.cedula);
-  return user1;
+  print(usuario.cedula);
+  return usuario;
 }
 
 class AuthCubit extends Cubit<AuthState> {
   final AuthRepositoryBase _authRepository;
   late StreamSubscription _authSubscription;
+  late RestDataSourceMySql _ResrDataSource;
 
   AuthCubit(this._authRepository) : super(AuthInitialState());
 
@@ -29,12 +31,23 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> reset() async => emit(AuthInitialState());
 
-  void _authStateChanged(AuthUser? user) {
-    if (user != null) {
-      datosMysql(user);
-      //emit(AuthSignedOut());
-    } else {
-      emit(AuthSignedOut());
+  Future<void> _authStateChanged(AuthUser? user) async {
+    try {
+      final usuario = 'uWb0PKBbhBZVirLh0bllk2ncDRp1hhhh';
+      final dataSource = RestDataSourceMySql();
+      final result = await dataSource.getName(usuario);
+
+      if (user != null && result != null) {
+        print('trajo datos');
+        print(result);
+        emit(AuthSignedWithMysql(user));
+      } else if (user != null && result == null) {
+        emit(AuthNoRegister(user));
+      } else if (user == null) {
+        emit(AuthSignedOut());
+      }
+    } on Exception catch (_) {
+      print("Se cayo");
     }
   }
 
@@ -97,6 +110,14 @@ class AuthSignedWithMysql extends AuthState {
   final AuthUser user;
 
   AuthSignedWithMysql(this.user);
+  @override
+  List<Object?> get props => [user];
+}
+
+class AuthNoRegister extends AuthState {
+  final AuthUser user;
+
+  AuthNoRegister(this.user);
   @override
   List<Object?> get props => [user];
 }

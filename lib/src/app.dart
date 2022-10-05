@@ -8,6 +8,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutterfire_ui/i10n.dart';
 
 import '../l10n/l10n.dart';
+import 'UI/register.dart';
 
 final _navigatorKey = GlobalKey<NavigatorState>();
 
@@ -23,6 +24,9 @@ class MyApp extends StatelessWidget {
         } else if (state is AuthSignedWithMysql) {
           _navigatorKey.currentState
               ?.pushNamedAndRemoveUntil(Routes.home, (r) => false);
+        } else if (state is AuthNoRegister) {
+          _navigatorKey.currentState
+              ?.pushNamedAndRemoveUntil(Routes.registrar, (r) => false);
         }
       },
       child: const MyApp(),
