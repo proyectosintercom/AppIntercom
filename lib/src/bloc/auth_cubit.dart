@@ -24,7 +24,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> init() async {
     // Just for testing. Allows the splash screen to be shown a few seconds
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 0));
     _authSubscription =
         _authRepository.onAuthStateChanged.listen(_authStateChanged);
   }
@@ -33,21 +33,23 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> _authStateChanged(AuthUser? user) async {
     try {
-      final usuario = 'uWb0PKBbhBZVirLh0bllk2ncDRp1hhhh';
-      final dataSource = RestDataSourceMySql();
-      final result = await dataSource.getName(usuario);
-
-      if (user != null && result != null) {
-        print('trajo datos');
-        print(result);
-        emit(AuthSignedWithMysql(user));
-      } else if (user != null && result == null) {
-        emit(AuthNoRegister(user));
-      } else if (user == null) {
-        emit(AuthSignedOut());
+      if (user == null) {
+        return emit(AuthSignedOut());
+      } else {
+        final dataSource = RestDataSourceMySql();
+        final usuario = await dataSource.getName(user.uid);
+        print("Trajo datos de MySQl");
+        print(usuario.cedula);
+        if (usuario == null) {
+          emit(AuthNoRegister(user));
+        } else {
+          emit(AuthSignedWithMysql(user));
+        }
       }
-    } on Exception catch (_) {
-      print("Se cayo");
+    } on Exception catch (e) {
+      print("No trajo datos");
+      //emit(AuthNoRegister(user));
+
     }
   }
 

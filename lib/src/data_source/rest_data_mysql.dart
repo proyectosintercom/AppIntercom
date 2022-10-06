@@ -25,7 +25,7 @@ class RestDataSourceMySql {
     final decoded = utf8.decode(response.bodyBytes);
     final jsonData = jsonDecode(decoded);
     print(jsonData[0]);
-    return (jsonData[0]);
+    return builder(jsonData[0]);
   }
 
   Future<UserMysql> getName(String uid) async {
