@@ -1,24 +1,14 @@
-import 'package:appintercom/src/repository/auth_repository.dart';
 import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutterfire_ui/auth.dart';
 
 import '../data_source/rest_data_mysql.dart';
-import '../models/user_mysql_model.dart';
-
-Future<UserMysql> datosMysql(user) async {
-  final dataSource = RestDataSourceMySql();
-  final usuario = await dataSource.getName(user);
-  //print(user.correo);
-  print(usuario.cedula);
-  return usuario;
-}
+import '../repository/auth_repository.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   final AuthRepositoryBase _authRepository;
   late StreamSubscription _authSubscription;
-  late RestDataSourceMySql _ResrDataSource;
+
 
   AuthCubit(this._authRepository) : super(AuthInitialState());
 
@@ -39,7 +29,7 @@ class AuthCubit extends Cubit<AuthState> {
         final dataSource = RestDataSourceMySql();
         final usuario = await dataSource.getName(user.uid);
         print("Trajo datos de MySQl");
-        print(usuario.cedula);
+        //   print(usuario.cedula);
         if (usuario == null) {
           emit(AuthNoRegister(user));
         } else {

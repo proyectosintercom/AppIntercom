@@ -9,7 +9,7 @@ class UserIntercom extends Equatable
   final String? image;
 
 
-  UserIntercom.name(this.id, this.name, this.lastName, this.age, {this.image});
+  const UserIntercom.name(this.id, this.name, this.lastName, this.age, {this.image});
 
   @override
   // TODO: implement props

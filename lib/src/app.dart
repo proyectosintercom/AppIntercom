@@ -3,12 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:appintercom/src/bloc/auth_cubit.dart';
 import 'package:appintercom/src/navigation/routes.dart';
 
-import 'package:appintercom/generated/l10n.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutterfire_ui/i10n.dart';
 
 import '../l10n/l10n.dart';
-import 'UI/register.dart';
 
 final _navigatorKey = GlobalKey<NavigatorState>();
 

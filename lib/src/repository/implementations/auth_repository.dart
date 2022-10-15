@@ -1,7 +1,7 @@
 
 import 'package:appintercom/src/repository/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepository extends AuthRepositoryBase
@@ -12,7 +12,7 @@ class AuthRepository extends AuthRepositoryBase
   @override
   Stream<AuthUser?> get onAuthStateChanged => _firebaseAuth.authStateChanges().asyncMap(_userFromFirebase);
 
-  @override
+  /*@override
   Future<AuthUser?> signInAnonymously() async {
     try {
       final user = await _firebaseAuth.signInAnonymously();
@@ -21,9 +21,9 @@ class AuthRepository extends AuthRepositoryBase
     } on Exception catch (e) {
       print(e);
     }
-  }
+  }*/
 
-    @override
+   /* @override
     Future<AuthUser?> signInWithGoogle() async {
       try {
 
@@ -67,7 +67,7 @@ class AuthRepository extends AuthRepositoryBase
           email: email, password: password);
       return _userFromFirebase(authResult.user);
     }
-
+*/
     @override
     Future<void> signOut() async {
       final googleSignIn = GoogleSignIn();
