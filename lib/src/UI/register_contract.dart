@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/auth_cubit.dart';
+import '../data_source/rest_data_source_chatbot.dart';
+import '../models/user_chatbot_model.dart';
 import '../models/user_finansys_model.dart';
 import '../data_source/rest_data_source.dart';
 
@@ -21,21 +25,21 @@ class _register_contractState extends State<register_contract> {
 
   Widget build(BuildContext context) {
 
-
-    Future<UserFinansys?>  getContract (cedula) async {
+    Future<Userchatbot?> getDataPS(cedula) async
+    {
       try {
-        final dataSource = RestDataSource();
-        String idc = '0190483843001';
-        final name = await dataSource.getContract(cedula, idc);
+        final dataSource = RestDataChatbot();
+        final name = await dataSource.getDataPS(cedula);
         print(name);
-        //print( name!.nombre);
         return name;
       }
       catch (e)
       {
         print(e);
       }
+
     }
+
     final _formKey = GlobalKey<FormState>();
     return Scaffold(
         appBar: AppBar(title: const Text('Bienvenido')),
@@ -71,7 +75,26 @@ class _register_contractState extends State<register_contract> {
                             child: ElevatedButton(
                               onPressed: () {
                                 cedula=txtcedula.text;
-                                print(cedula);
+                               getDataPS(cedula);
+
+                                FutureBuilder<Userchatbot?>(
+                                    future: getDataPS(cedula),
+                                    builder: (BuildContext context,snapshot) {
+                                      if (snapshot.hasData) {
+                                        return Text("Hoooooola${snapshot.data!.unidad}");
+                                      }
+                                      else if(!snapshot.hasData)
+                                        {
+                                          return Text("NO tiene datos");
+                                        }
+
+                                     else {
+                                        return CircularProgressIndicator();
+                                      }
+                                    });
+
+
+                                /*
                                 FutureBuilder<UserFinansys?>(
 
                                     future: getContract(cedula),
@@ -101,6 +124,8 @@ class _register_contractState extends State<register_contract> {
                                       }
                                     });
 
+*/
+
 
 
                                 // devolverá true si el formulario es válido, o falso si
@@ -117,6 +142,11 @@ class _register_contractState extends State<register_contract> {
                         ],
                       ),
                     ),
+
+
+
+
+
                     ElevatedButton(
                         onPressed: () => context.read<AuthCubit>().signOut(),
                         child: const Text('Salir'))
