@@ -30,7 +30,7 @@ class _register_contractState extends State<register_contract> {
       try {
         final dataSource = RestDataChatbot();
         final name = await dataSource.getDataPS(cedula);
-        print(name);
+
         return name;
       }
       catch (e)
@@ -75,24 +75,30 @@ class _register_contractState extends State<register_contract> {
                             child: ElevatedButton(
                               onPressed: () {
                                 cedula=txtcedula.text;
-                               getDataPS(cedula);
+                                getDataPS(cedula).then((name) => _dialogBuilder(context,name!.value));
 
-                                FutureBuilder<Userchatbot?>(
+                              // getDataPS(cedula);
+/*
+                                FutureBuilder(
                                     future: getDataPS(cedula),
-                                    builder: (BuildContext context,snapshot) {
+                                    builder: (BuildContext context,AsyncSnapshot snapshot) {
                                       if (snapshot.hasData) {
                                         return Text("Hoooooola${snapshot.data!.unidad}");
                                       }
-                                      else if(!snapshot.hasData)
+                                      else if(snapshot.data==null)
                                         {
                                           return Text("NO tiene datos");
+                                        }
+                                      else if(snapshot.hasError)
+                                        {
+                                          return Text("Hubo un error");
                                         }
 
                                      else {
                                         return CircularProgressIndicator();
                                       }
                                     });
-
+*/
 
                                 /*
                                 FutureBuilder<UserFinansys?>(
@@ -155,5 +161,37 @@ class _register_contractState extends State<register_contract> {
               );
             }));
   }
+}
+
+Future<void> _dialogBuilder(BuildContext context, String? value) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Usuario encontrado'),
+        content:Text('Se van agregar todos sus contratos a su cuenta ${value}'),
+        actions: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Disable'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Enable'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
 

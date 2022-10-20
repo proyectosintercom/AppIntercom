@@ -25,50 +25,34 @@ class RestDataChatbot{
     required Map<String, String> params,
     required T Function(Map<String, dynamic> data) builder,
   }) async {
-    try {
+try {
+  var uri = Uri.http(_baseUrl, endpoint);
+  var request = http.MultipartRequest('POST', uri)
+    ..fields.addAll(params);
+  var response = await request.send();
 
-        var uri = Uri.http(_baseUrl, endpoint);
-        var request = http.MultipartRequest('POST', uri)
-          ..fields.addAll(params);
-        var response = await request.send();
-
-        if(response.statusCode==200)
-        {
-          final respStr = await response.stream.bytesToString();
-
-          //final decoded = json.decode(respStr);
-          final decoded = json.decode(respStr);
-          print(
-              decoded
-          );
-          if(decoded['message'][0]==null)
-            {
-              return builder(decoded['message']);
-            }
-
-          else
-            {
-              return builder(decoded['message'][0]);
-            }
+  if (response.statusCode == 200) {
+    final respStr = await response.stream.bytesToString();
 
 
+    //final decoded = json.decode(respStr);
+    final decoded = json.decode(respStr);
+    print("Esto son los datos ${decoded["message"][0]}");
+
+    return builder(decoded["message"][0]);
 
 
-        }
-        else
-        {
-          throw Exception('Fallo al traer datos');
-        }
-
-
-
-
-
-
+   // return builder(decoded['message'][0]);
+  }
+  else {
+    throw Exception('Failed to load post');
+  }
+}
+catch (e)
+    {
+     print(e);
     }
-    catch (e) {
-      print(e);
-    }
+
   }
 
   Future<Userchatbot?> getDataPS(String cedula) async
@@ -80,7 +64,9 @@ class RestDataChatbot{
         'comando':'lista-clientes',
         'documento': cedula},
 
-      builder: (data) => Userchatbot.fromJson(data),
+     builder: (data) => Userchatbot.fromJson(data),
+
+
     );
   }
 
